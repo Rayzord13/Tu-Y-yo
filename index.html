@@ -5,14 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 <title>Para ti</title>
 <style>
-  /* ===================== TOKENS =====================
-     Fondo:   #0B0B0E  negro cálido
-     Vino:    #6E2430  acento profundo
-     Vino sf: #3E1620  glow de fondo
-     Oro:     #B8975A  metal apagado
-     Marfil:  #EDE7DF  texto principal
-     Ceniza:  #746B68  texto secundario
-  ===================================================== */
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Sora:wght@300;400;500;600&display=swap');
 
   :root{
@@ -46,7 +38,6 @@
   }
   @keyframes growLine{ to{ transform:scaleY(1); } }
 
-  /* ================= 1. HUELLA (overlay bloqueante) ================= */
   #stage{
     position:fixed; inset:0; z-index:50;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -73,7 +64,6 @@
     stroke-dasharray:452.4; stroke-dashoffset:452.4;
     filter:drop-shadow(0 0 6px rgba(184,151,90,.55));
   }
-  /* huella: arcos concéntricos reales, centrados en 24x24 */
   #fpIcon{ width:64px; height:64px; position:relative; z-index:2; }
   #fpIcon path{
     fill:none; stroke:var(--ash); stroke-width:1.15;
@@ -84,14 +74,13 @@
   #hint{ font-size:13px; color:var(--ash); font-weight:300; transition:opacity .3s ease; }
   #hint b{ color:var(--gold); font-weight:500; }
 
-  /* ================= SECCIÓN base (scroll-snap) ================= */
   section{
-    min-height:100vh; width:100%;
+    width:100%;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center; padding:64px 24px; position:relative;
+    text-align:center; padding:56px 24px; position:relative;
   }
+  #hero{ min-height:100vh; }
 
-  /* ================= 2. HERO + CONTADOR ================= */
   #hero{
     background:
       radial-gradient(ellipse 90% 60% at 50% 0%, var(--wine-soft) 0%, transparent 60%),
@@ -122,12 +111,40 @@
   }
   @keyframes bob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(6px);} }
 
-  /* ================= 3. GALERÍA (polaroid) ================= */
   #galeria .titulo-serif{ font-size:clamp(26px,7vw,38px); margin-bottom:4px; }
+
+  .album{ margin-top:34px; width:100%; max-width:340px; }
+  @media (min-width:640px){ .album{ max-width:640px; } }
+  @media (min-width:1000px){ .album{ max-width:920px; } }
+  .album-tapa{
+    cursor:pointer; -webkit-tap-highlight-color:transparent; user-select:none;
+    background:rgba(110,36,48,.14); border:1px solid rgba(184,151,90,.3);
+    border-radius:8px; padding:26px 22px; display:flex; flex-direction:column;
+    align-items:center; gap:10px; transition:border-color .3s ease, background .3s ease;
+  }
+  .album-tapa:hover{ border-color:rgba(184,151,90,.55); }
+  .album-icono{
+    width:34px; height:34px; border:1px solid var(--gold); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; color:var(--gold);
+    font-size:15px; transition:transform .4s ease;
+  }
+  .album.abierto .album-icono{ transform:rotate(45deg); }
+  .album-frase{ font-family:'Fraunces',serif; font-style:italic; font-size:19px; color:var(--ivory); }
+  .album-sub{ font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:var(--ash); }
+  .album-contenido{ max-height:0; overflow:hidden; transition:max-height .6s ease; }
+  .album.abierto .album-contenido{ max-height:420px; }
+
   .carrusel{
     display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x mandatory;
-    padding:36px 8vw 12px; max-width:100%; width:100%;
+    padding:36px 6vw 12px; max-width:100%; width:100%;
     -webkit-overflow-scrolling:touch;
+    cursor:grab;
+  }
+  .carrusel.arrastrando{ cursor:grabbing; scroll-snap-type:none; user-select:none; }
+  @media (min-width:640px){
+    .carrusel{ padding:36px 24px 16px; gap:24px; }
+    .polaroid{ width:250px; }
+    .polaroid img{ height:260px; }
   }
   .carrusel::-webkit-scrollbar{ display:none; }
   .polaroid{
@@ -137,16 +154,16 @@
     transform:rotate(var(--tilt,0deg));
     border-radius:2px;
   }
-  .polaroid:nth-child(1){ --tilt:-3deg; }
-  .polaroid:nth-child(2){ --tilt:2deg; }
-  .polaroid:nth-child(3){ --tilt:-2deg; }
+  .polaroid:nth-child(4n+1){ --tilt:-3deg; }
+  .polaroid:nth-child(4n+2){ --tilt:2deg; }
+  .polaroid:nth-child(4n+3){ --tilt:-2deg; }
+  .polaroid:nth-child(4n+4){ --tilt:3deg; }
   .polaroid img{ width:100%; height:230px; object-fit:cover; background:#333; }
   .polaroid figcaption{
     font-family:'Fraunces',serif; font-style:italic; font-weight:400;
     color:#2A2521; text-align:center; margin-top:12px; font-size:14px;
   }
 
-  /* ================= 4. LÍNEA DE TIEMPO ================= */
   #tiempo{
     background:
       radial-gradient(ellipse 80% 50% at 50% 100%, var(--wine-soft) 0%, transparent 60%),
@@ -168,21 +185,20 @@
     background:rgba(110,36,48,.14); border:1px solid rgba(184,151,90,.2);
     border-radius:4px; padding:18px 20px; text-align:left;
   }
-  .hito-fecha{
-    font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold);
-  }
-  .hito-titulo{
-    font-family:'Fraunces',serif; font-style:italic; font-size:19px; margin-top:6px;
-  }
-  .hito-texto{
-    font-size:13px; color:#B9AFA9; margin-top:8px; line-height:1.6; font-weight:300;
-  }
+  .hito-fecha{ font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
+  .hito-titulo{ font-family:'Fraunces',serif; font-style:italic; font-size:19px; margin-top:6px; }
+  .hito-texto{ font-size:13px; color:#B9AFA9; margin-top:8px; line-height:1.6; font-weight:300; }
 
-  /* ================= 5. CARTA / SOBRE ================= */
   #carta-sec .titulo-serif{ font-size:clamp(24px,6vw,32px); }
+  .carta-wrap{
+    margin-top:38px; width:100%; max-width:320px;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  @media (min-width:640px){ .carta-wrap{ max-width:460px; } }
+
   #sobre{
-    margin-top:38px; width:260px; height:180px; position:relative; cursor:pointer;
-    perspective:800px;
+    width:260px; height:180px; position:relative; cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
   }
   .sobre-cuerpo{
     position:absolute; inset:0; background:linear-gradient(160deg,#C9A15A,#8C6B3B);
@@ -195,7 +211,7 @@
     transform-origin:top; transition:transform .8s cubic-bezier(.6,0,.3,1);
     border-radius:4px 4px 0 0;
   }
-  #sobre.abierto .sobre-solapa{ transform:rotateX(180deg); }
+  .carta-wrap.abierto .sobre-solapa{ transform:rotateX(180deg); }
   .sello{
     position:absolute; top:44%; left:50%; transform:translate(-50%,-50%);
     width:38px; height:38px; border-radius:50%; background:var(--wine);
@@ -203,23 +219,30 @@
     font-family:'Fraunces',serif; font-style:italic; font-size:14px; color:var(--gold);
     box-shadow:0 4px 10px rgba(0,0,0,.4); z-index:3;
   }
-  .carta-hoja{
-    position:absolute; left:6%; right:6%; bottom:-6%; height:0; overflow:hidden;
-    background:#F4EFE7; color:#2A2521; border-radius:2px;
+
+  .carta-panel{
+    width:100%; max-height:0; overflow:hidden;
+    margin-top:0; opacity:0;
+    transition:max-height .7s ease, margin-top .7s ease, opacity .5s ease;
+  }
+  .carta-wrap.abierto .carta-panel{ max-height:380px; margin-top:22px; opacity:1; }
+  @media (min-width:640px){
+    .carta-wrap.abierto .carta-panel{ max-height:460px; }
+  }
+  .carta-scroll{
+    max-height:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;
+    background:#F4EFE7; color:#2A2521; border-radius:8px;
     box-shadow:0 20px 40px rgba(0,0,0,.4);
-    transition:height .7s .3s ease, bottom .7s .3s ease;
-    z-index:1;
+    padding:24px 22px;
   }
-  #sobre.abierto .carta-hoja{ height:220px; bottom:-70%; }
   .carta-texto{
-    padding:22px 22px; font-family:'Fraunces',serif; font-style:italic;
-    font-size:14px; line-height:1.8; opacity:0; transition:opacity .6s .7s ease;
+    font-family:'Fraunces',serif; font-style:italic;
+    font-size:14px; line-height:1.85; text-align:left;
+    white-space:pre-line;
   }
-  #sobre.abierto .carta-texto{ opacity:1; }
   .carta-hint{ margin-top:16px; font-size:11px; color:var(--ash); letter-spacing:.05em; }
 
-  /* ================= 6. CIERRE + CONFETI ================= */
-  #cierre{ overflow:hidden; }
+  #cierre{ overflow:hidden; padding-bottom:80px; }
   .titulo-cierre{ font-size:clamp(32px,9vw,54px); color:var(--wine-glow,#c95d6a); }
   .titulo-cierre .rojo{ color:#B4394A; }
   .cierre-sub{
@@ -230,14 +253,11 @@
     position:absolute; top:-10px; border-radius:1px; opacity:.85;
     animation:caer linear infinite;
   }
-  @keyframes caer{
-    to{ transform:translateY(110vh) rotate(360deg); }
-  }
+  @keyframes caer{ to{ transform:translateY(110vh) rotate(360deg); } }
 </style>
 </head>
 <body>
 
-  <!-- ============ HUELLA (bloqueante) ============ -->
   <div id="stage">
     <div class="eyebrow">Toque privado</div>
     <div id="fp">
@@ -245,7 +265,6 @@
       <svg id="progressRing" viewBox="0 0 148 148">
         <circle cx="74" cy="74" r="72"></circle>
       </svg>
-      <!-- huella: arcos concéntricos + línea central, centrada en viewBox 24x24 -->
       <svg id="fpIcon" viewBox="0 0 24 24">
         <path d="M12 3.2c-4.8 0-8.7 3.9-8.7 8.7"/>
         <path d="M6.2 20.4c-1.9-2.1-3-4.9-3-8"/>
@@ -260,14 +279,13 @@
     <div id="hint">Mantén presionado <b>·</b> unos segundos</div>
   </div>
 
-  <!-- ============ 1. HERO + CONTADOR ============ -->
   <section id="hero">
     <div class="divider"></div>
     <div class="titulo-serif titulo-hero">Tú <em>&amp;</em> Yo</div>
     <div class="subtitulo">Desde el 23 de julio</div>
     <p class="mensaje">
-      No fue el ruido lo que nos unió, fue lo que se quedó en silencio<br>
-      y aun así se entendió. Esto es solo un conteo — lo otro no se mide.
+      No fue el ruido lo que nos unió, fue lo que se quedó en silencio
+      y aun así se entendió. <br>El reloj marca minutos, pero lo nuestro no tiene manecillas que lo alcancen ni números que lo definan.
     </p>
     <div id="contador">
       <div class="celda"><div class="num" id="d">00</div><div class="lbl">Días</div></div>
@@ -281,30 +299,35 @@
     <div class="scroll-cue">desliza ↓</div>
   </section>
 
-  <!-- ============ 2. GALERÍA DE FOTOS ============ -->
   <section id="galeria">
     <div class="eyebrow">Memorias</div>
     <div class="titulo-serif">Nuestras fotos</div>
-    <div class="carrusel">
-      <figure class="polaroid">
-        <img src="https://picsum.photos/seed/nosotros1/400/500" alt="Foto 1 — reemplázala por la tuya">
-        <figcaption>la primera vez</figcaption>
-      </figure>
-      <figure class="polaroid">
-        <img src="https://picsum.photos/seed/nosotros2/400/500" alt="Foto 2 — reemplázala por la tuya">
-        <figcaption>ese viaje</figcaption>
-      </figure>
-      <figure class="polaroid">
-        <img src="https://picsum.photos/seed/nosotros3/400/500" alt="Foto 3 — reemplázala por la tuya">
-        <figcaption>tus ojos</figcaption>
-      </figure>
+    <div class="album" id="album">
+      <div class="album-tapa" id="albumTapa">
+        <div class="album-icono">+</div>
+        <div class="album-frase">Nuestro 1er viaje</div>
+        <div class="album-sub">10 fotos · toca para ver</div>
+      </div>
+      <div class="album-contenido">
+        <div class="carrusel">
+          <figure class="polaroid"><img src="Fotos/1.jpeg" alt="Foto 1"><figcaption>A subir todo eso</figcaption></figure>
+          <figure class="polaroid"><img src="Fotos/2.jpeg" alt="Foto 2"><figcaption>A bajar todo eso</figcaption></figure>
+          <figure class="polaroid"><img src="Fotos/3.jpeg" alt="Foto 3"><figcaption>En manos del destino</figcaption></figure>
+          <figure class="polaroid"><img src="Fotos/4.jpeg" alt="Foto 4"><figcaption>Xq temblaba mas q yo</figcaption></figure>
+          <figure class="polaroid"><img src="Fotos/5.jpeg" alt="Foto 5"><figcaption>La viajera cansada</figcaption></figure>
+          <figure class="polaroid"><img src="Fotos/6.jpeg" alt="Foto 6"><figcaption>Como llegue aca</figcaption></figure>
+          <figure class="polaroid"><img src="Fotos/7.jpeg" alt="Foto 7"><figcaption>Donde estare</figcaption></figure>
+          <figure class="polaroid"><img src="Fotos/8.jpeg" alt="Foto 8"><figcaption>Un café y a continuar</figcaption></figure>
+          <figure class="polaroid"><img src="Fotos/9.jpeg" alt="Foto 9"><figcaption>Emoliente infiltrado</figcaption></figure>
+          <figure class="polaroid"><img src="Fotos/10.jpeg" alt="Foto 10"><figcaption>Linda vista</figcaption></figure>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ============ 3. LÍNEA DE TIEMPO ============ -->
   <section id="tiempo">
     <div class="eyebrow">El recorrido</div>
-    <div class="titulo-serif">Nuestros momentos</div>
+    <div class="titulo-serif">Nuestras etapas</div>
     <div class="timeline">
       <div class="hito">
         <div class="hito-card">
@@ -323,25 +346,24 @@
     </div>
   </section>
 
-  <!-- ============ 4. CARTA / SOBRE ============ -->
   <section id="carta-sec">
     <div class="eyebrow">Una carta</div>
     <div class="titulo-serif">Ábrela despacio</div>
-    <div id="sobre">
-      <div class="carta-hoja">
-        <p class="carta-texto">
-          Escribo esto sabiendo que las palabras se quedan cortas.<br><br>
-          Gracias por elegirme, incluso en los días difíciles.
-        </p>
+    <div class="carta-wrap" id="cartaWrap">
+      <div id="sobre">
+        <div class="sobre-cuerpo"></div>
+        <div class="sobre-solapa"></div>
+        <div class="sello">R&amp;M</div>
       </div>
-      <div class="sobre-cuerpo"></div>
-      <div class="sobre-solapa"></div>
-      <div class="sello">M&J</div>
+      <div class="carta-panel">
+        <div class="carta-scroll">
+          <p class="carta-texto" id="cartaTexto"></p>
+        </div>
+      </div>
     </div>
     <div class="carta-hint">toca el sobre para abrirlo</div>
   </section>
 
-  <!-- ============ 5. CIERRE ============ -->
   <section id="cierre">
     <div class="eyebrow">Y al final solo queda esto</div>
     <div class="titulo-serif titulo-cierre">Te amo,<br><span class="rojo">mi amor.</span></div>
@@ -349,14 +371,13 @@
   </section>
 
 <script>
-  /* ---------- Fecha de inicio: editable ---------- */
   const FECHA_INICIO = new Date('2026-07-23T00:00:00');
 
   const stage  = document.getElementById('stage');
   const fp     = document.getElementById('fp');
   const ring   = document.querySelector('#progressRing circle');
   const hint   = document.getElementById('hint');
-  const CIRC   = 452.4; // 2 * PI * r(72)
+  const CIRC   = 452.4;
 
   let holding = false, progress = 0, raf;
   const HOLD_MS = 1400;
@@ -405,7 +426,6 @@
   fp.addEventListener('touchstart', startHold, {passive:false});
   ['mouseup','mouseleave','touchend','touchcancel'].forEach(ev => fp.addEventListener(ev, cancelHold));
 
-  /* ---------- Contador ---------- */
   function pad(n){ return String(n).padStart(2,'0'); }
   function startCountdown(){
     function update(){
@@ -419,12 +439,62 @@
     update(); setInterval(update, 1000);
   }
 
-  /* ---------- Sobre / carta ---------- */
+  document.getElementById('cartaTexto').textContent =
+`Esta carta no es suficiente para describir todo el amor inmenso,
+mucho más que el mar que se divisa, tu presencia me tranquiliza,
+y como por arte de magia tú me contagias ese no sé qué,
+que hace querer tenerte siempre conmigo,
+invierto el tiempo contigo y se me nota que es muy sencillo,
+el brillo de los ojos me delata y yo,
+no pienso más que en ti,
+me divides de la realidad y me llevas a la imaginación,
+me aguantas cuando me revelo o si me pongo malo,
+si tengo la mirada hacia el cielo en uno de esos días tristes
+no me preocupo mucho porque sé que existes.
+Hoy un sueño hoy es ir contigo a todas partes, 
+me encanta el arte de llevarte,
+seguirte el paso, pasear al compás de tu antojo
+reconocerte desde lejos si te escucho bajo,
+algo tan fácil cuando de verdad se ama,
+eres motivo de un vivo sentimiento.
+
+El destino quiso encontrarnos y después conocernos, no le reclamaré nada, porque de todos los caminos posibles, me trajo justo hasta ti.`;
+
   document.getElementById('sobre').addEventListener('click', function(){
-    this.classList.toggle('abierto');
+    document.getElementById('cartaWrap').classList.toggle('abierto');
   });
 
-  /* ---------- Confeti (solo en sección de cierre) ---------- */
+  document.getElementById('albumTapa').addEventListener('click', function(){
+    document.getElementById('album').classList.toggle('abierto');
+  });
+
+  const carrusel = document.querySelector('.carrusel');
+  if(carrusel){
+    carrusel.addEventListener('wheel', (e) => {
+      if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
+        e.preventDefault();
+        carrusel.scrollLeft += e.deltaY;
+      }
+    }, { passive:false });
+
+    let arrastrando = false, xInicio = 0, scrollInicio = 0;
+    carrusel.addEventListener('mousedown', (e) => {
+      arrastrando = true;
+      carrusel.classList.add('arrastrando');
+      xInicio = e.pageX;
+      scrollInicio = carrusel.scrollLeft;
+    });
+    window.addEventListener('mouseup', () => {
+      arrastrando = false;
+      carrusel.classList.remove('arrastrando');
+    });
+    window.addEventListener('mousemove', (e) => {
+      if(!arrastrando) return;
+      e.preventDefault();
+      carrusel.scrollLeft = scrollInicio - (e.pageX - xInicio);
+    });
+  }
+
   function spawnConfetti(){
     const cierre = document.getElementById('cierre');
     const colors = ['#B8975A','#6E2430','#EDE7DF','#8C6B3B'];
