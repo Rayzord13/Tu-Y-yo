@@ -6,7 +6,6 @@
 <title>Para ti</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Sora:wght@300;400;500;600&display=swap');
-
   :root{
     --bg:#0B0B0E; --wine:#6E2430; --wine-soft:#3E1620;
     --gold:#B8975A; --ivory:#EDE7DF; --ash:#746B68;
@@ -21,7 +20,6 @@
     *{animation-duration:0.01ms !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
   }
   img{max-width:100%; display:block;}
-
   .eyebrow{
     font-size:11px; letter-spacing:.35em; text-transform:uppercase;
     color:var(--ash); font-weight:500;
@@ -37,7 +35,6 @@
     animation:growLine .9s .2s ease forwards;
   }
   @keyframes growLine{ to{ transform:scaleY(1); } }
-
   #stage{
     position:fixed; inset:0; z-index:50;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -48,7 +45,6 @@
     transition:opacity 1s ease, filter 1s ease;
   }
   #stage.leaving{ opacity:0; filter:blur(8px); pointer-events:none; }
-
   #fp{
     position:relative; width:148px; height:148px;
     display:flex; align-items:center; justify-content:center;
@@ -70,23 +66,20 @@
     stroke-linecap:round; transition:stroke .5s ease;
   }
   #fp.active #fpIcon path{ stroke:var(--gold); }
-
   #hint{ font-size:13px; color:var(--ash); font-weight:300; transition:opacity .3s ease; }
   #hint b{ color:var(--gold); font-weight:500; }
-
   section{
     width:100%;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     text-align:center; padding:56px 24px; position:relative;
   }
-  #hero{ min-height:100vh; }
-
+  #hero{ min-height:auto; justify-content:flex-start; padding-top:14vh; padding-bottom:64px; }
   #hero{
     background:
       radial-gradient(ellipse 90% 60% at 50% 0%, var(--wine-soft) 0%, transparent 60%),
       var(--bg);
   }
-  .titulo-hero{ font-size:clamp(34px,9vw,32px); }
+  .titulo-hero{ font-size:clamp(34px,9vw,56px); }
   .titulo-hero em{ color:var(--gold); font-style:italic; }
   .subtitulo{
     margin-top:14px; font-size:13px; letter-spacing:.06em;
@@ -110,9 +103,7 @@
     text-transform:uppercase; color:var(--ash); animation:bob 2.4s ease-in-out infinite;
   }
   @keyframes bob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(6px);} }
-
   #galeria .titulo-serif{ font-size:clamp(26px,7vw,38px); margin-bottom:4px; }
-
   .album{ margin-top:34px; width:100%; max-width:340px; }
   @media (min-width:640px){ .album{ max-width:640px; } }
   @media (min-width:1000px){ .album{ max-width:920px; } }
@@ -133,7 +124,6 @@
   .album-sub{ font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:var(--ash); }
   .album-contenido{ max-height:0; overflow:hidden; transition:max-height .6s ease; }
   .album.abierto .album-contenido{ max-height:420px; }
-
   .carrusel{
     display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x mandatory;
     padding:36px 6vw 12px; max-width:100%; width:100%;
@@ -163,7 +153,6 @@
     font-family:'Fraunces',serif; font-style:italic; font-weight:400;
     color:#2A2521; text-align:center; margin-top:12px; font-size:14px;
   }
-
   #tiempo{
     background:
       radial-gradient(ellipse 80% 50% at 50% 100%, var(--wine-soft) 0%, transparent 60%),
@@ -188,14 +177,12 @@
   .hito-fecha{ font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
   .hito-titulo{ font-family:'Fraunces',serif; font-style:italic; font-size:19px; margin-top:6px; }
   .hito-texto{ font-size:13px; color:#B9AFA9; margin-top:8px; line-height:1.6; font-weight:300; }
-
   #carta-sec .titulo-serif{ font-size:clamp(24px,6vw,32px); }
   .carta-wrap{
     margin-top:38px; width:100%; max-width:320px;
     display:flex; flex-direction:column; align-items:center;
   }
   @media (min-width:640px){ .carta-wrap{ max-width:460px; } }
-
   #sobre{
     width:260px; height:180px; position:relative; cursor:pointer;
     -webkit-tap-highlight-color:transparent;
@@ -219,7 +206,6 @@
     font-family:'Fraunces',serif; font-style:italic; font-size:14px; color:var(--gold);
     box-shadow:0 4px 10px rgba(0,0,0,.4); z-index:3;
   }
-
   .carta-panel{
     width:100%; max-height:0; overflow:hidden;
     margin-top:0; opacity:0;
@@ -241,8 +227,7 @@
     white-space:pre-line;
   }
   .carta-hint{ margin-top:16px; font-size:11px; color:var(--ash); letter-spacing:.05em; }
-
-  #cierre{ overflow:hidden; padding-bottom:80px; }
+  #cierre{ overflow:hidden; min-height:auto; justify-content:flex-start; padding-top:56px; padding-bottom:110px; }
   .titulo-cierre{ font-size:clamp(32px,9vw,54px); color:var(--wine-glow,#c95d6a); }
   .titulo-cierre .rojo{ color:#B4394A; }
   .cierre-sub{
@@ -257,7 +242,6 @@
 </style>
 </head>
 <body>
-
   <div id="stage">
     <div class="eyebrow">Toque privado</div>
     <div id="fp">
@@ -278,7 +262,6 @@
     </div>
     <div id="hint">Mantén presionado <b>,</b> unos segundos</div>
   </div>
-
   <section id="hero">
     <div class="divider"></div>
     <div class="titulo-serif titulo-hero">Tú <em>&amp;</em> Yo</div>
@@ -298,7 +281,6 @@
     </div>
     <div class="scroll-cue">desliza ↓</div>
   </section>
-
   <section id="galeria">
     <div class="eyebrow">Memorias</div>
     <div class="titulo-serif">Nuestras fotos</div>
@@ -324,7 +306,6 @@
       </div>
     </div>
   </section>
-
   <section id="tiempo">
     <div class="eyebrow">El recorrido</div>
     <div class="titulo-serif">Nuestras etapas</div>
@@ -345,7 +326,6 @@
       </div>
     </div>
   </section>
-
   <section id="carta-sec">
     <div class="eyebrow">Una carta</div>
     <div class="titulo-serif">Ábrela despacio</div>
@@ -363,27 +343,21 @@
     </div>
     <div class="carta-hint">toca el sobre para abrirlo</div>
   </section>
-
   <section id="cierre">
     <div class="eyebrow">Y al final solo queda esto</div>
     <div class="titulo-serif titulo-cierre">Te amo,<br><span class="rojo">mi amor.</span></div>
     <p class="cierre-sub">Hoy, mañana, y todos los meses bonitos que nos queden.</p>
   </section>
-
 <script>
   const FECHA_INICIO = new Date('2026-07-23T00:00:00');
-
   const stage  = document.getElementById('stage');
   const fp     = document.getElementById('fp');
   const ring   = document.querySelector('#progressRing circle');
   const hint   = document.getElementById('hint');
   const CIRC   = 452.4;
-
   let holding = false, progress = 0, raf;
   const HOLD_MS = 1400;
-
   function setRing(p){ ring.style.strokeDashoffset = CIRC - (CIRC * p); }
-
   function tickHold(ts, start){
     if(!holding) return;
     progress = Math.min((ts - start) / HOLD_MS, 1);
@@ -425,7 +399,6 @@
   fp.addEventListener('mousedown', startHold);
   fp.addEventListener('touchstart', startHold, {passive:false});
   ['mouseup','mouseleave','touchend','touchcancel'].forEach(ev => fp.addEventListener(ev, cancelHold));
-
   function pad(n){ return String(n).padStart(2,'0'); }
   function startCountdown(){
     function update(){
@@ -438,26 +411,25 @@
     }
     update(); setInterval(update, 1000);
   }
-
   document.getElementById('cartaTexto').textContent =
 `Hace solo un mes que empezamos lo nuestro
 y todavía hay palabras tuyas que no consigo soltar,
 dijiste varias esa noche, pero unas pocas
 se quedaron dando vueltas dentro de mí,
-tal vez xq no son cosas que se le dicen a cualquiera,
-tal vez xq me las dijiste sin apartar la mirada,
+tal vez porque no son cosas que se le dicen a cualquiera,
+tal vez porque me las dijiste sin apartar la mirada,
 mencionaste que quieres construir algo hermoso, y
 que lo haremos juntos, qué cosa tan bonita,
 qué cosa tan seria, y qué bien sienta recordarlo.
-
 En este tiempo juntos eres la responsable
-De hacer sentir
+de hacer sentir
 que nuestras almas se encontraron
 mucho antes que nuestros corazones,
 antes incluso de que nuestras
 miradas se cruzaran,
 antes de que nuestras
 manos se rozaran.
+
 Bailaron en lo invisible (ellos si bailan),
 buscándose a través del tiempo,
 acariciándose en la sombra de los días,
@@ -467,15 +439,12 @@ al fin conscientes el uno del otro,
 entendieran que este encuentro
 no fue casualidad,
 sino una promesa antigua.`;
-
   document.getElementById('sobre').addEventListener('click', function(){
     document.getElementById('cartaWrap').classList.toggle('abierto');
   });
-
   document.getElementById('albumTapa').addEventListener('click', function(){
     document.getElementById('album').classList.toggle('abierto');
   });
-
   const carrusel = document.querySelector('.carrusel');
   if(carrusel){
     carrusel.addEventListener('wheel', (e) => {
@@ -484,7 +453,6 @@ sino una promesa antigua.`;
         carrusel.scrollLeft += e.deltaY;
       }
     }, { passive:false });
-
     let arrastrando = false, xInicio = 0, scrollInicio = 0;
     carrusel.addEventListener('mousedown', (e) => {
       arrastrando = true;
@@ -502,7 +470,6 @@ sino una promesa antigua.`;
       carrusel.scrollLeft = scrollInicio - (e.pageX - xInicio);
     });
   }
-
   function spawnConfetti(){
     const cierre = document.getElementById('cierre');
     const colors = ['#B8975A','#6E2430','#EDE7DF','#8C6B3B'];
